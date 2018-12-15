@@ -1,5 +1,5 @@
 import React from 'react'
-import {handleFail, audioFile} from "../helpers/helper";
+import {handleFail, audioFile,audioFile2} from "../helpers/helper";
 import {Progress, Segment, Button} from "semantic-ui-react";
 import {AGORA_API_KEY} from "../constants/keys";
 
@@ -53,7 +53,7 @@ export default class ClientVideoFeed extends React.Component {
 
     startMixing() {
         const options = {
-            filePath: audioFile,
+            filePath: audioFile2,
             playTime: 0,
             replace: false
         }
