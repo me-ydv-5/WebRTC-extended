@@ -29,7 +29,7 @@ export default class OthersVideoFeed extends React.Component{
 
         client.on('stream-subscribed', (evt) => {
             console.log('Stream Subscribed')
-            let stream = evt.stream
+            // let stream = evt.stream
             var bar = (value) => {
                 console.log('Bar value: ', value)
             }

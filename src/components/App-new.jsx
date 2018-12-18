@@ -72,7 +72,7 @@ class App extends React.Component {
                     console.log('Local Audio Stats:\n', stats, '\nEnding the audio stats')
                 })
 
-            }, 3000)
+            }, 1000)
         })
 
         // Triggers the "volume-indicator" callback event every two seconds.
@@ -145,6 +145,9 @@ class App extends React.Component {
     }
 
     getNavigationBar () {
+        var audio_key = Object.keys(this.state.audio_stats);
+        var video_key = Object.keys(this.state.video_stats);
+        console.log("Audio key : ", audio_key, " Video Key: ", video_key);
         return <div>
             <Navbar fixedTop>
             <Navbar.Header>
@@ -173,6 +176,36 @@ class App extends React.Component {
                             <ReactTooltip place="top" type="dark" effect="float"/>
                         </p>
                     </NavItem> */}
+                    <NavItem>
+                        <DropdownButton 
+                            eventKey={4} 
+                            onClick = 
+                                {() => this.setState({hide: !this.state.hide})}
+                            bsSize="xsmall"
+                            title={'Stream Quality'} 
+                            noCaret
+                            id="stream-dropdown"
+                        >
+                            {/* <Clearfix> */}
+                            {/* <ul className="dropdown-menu open"> */}
+                                <MenuItem header>Local Audio Stats</MenuItem>
+                                <MenuItem>{`Encoding type of the sent audio: ${audio_key.length !== 0 ? this.state.audio_stats[audio_key[0]]['CodecType'] : "Not Available"}`}</MenuItem>
+                                <MenuItem>{`Energy level of the captured audio:  ${audio_key.length !== 0 ? this.state.audio_stats[audio_key[0]]['RecordingLevel'] : "Not Available"}`}</MenuItem>
+                                <MenuItem>{`Bitrate of the sent audio, in Kbps:  ${audio_key.length !== 0 ? this.state.audio_stats[audio_key[0]]['SendBitrate'] : "Not Available"}`}</MenuItem>
+                                <MenuItem>{`Whether the audio is muted or not:  ${audio_key.length !== 0 ? (this.state.audio_stats[audio_key[0]]['MuteState'] === 0 ? "Unmuted" : "Muted") : "Not Available"}`}</MenuItem>
+                                <MenuItem>{`Energy level of the sent audio:  ${audio_key.length !== 0 ? this.state.audio_stats[audio_key[0]]['SendLevel'] : "Not Available"}`}</MenuItem>
+                                <MenuItem divider />
+                                <MenuItem header>Local Video Stats</MenuItem>
+                                <MenuItem>{`Resolution height of the sent video, in pixels:  ${video_key.length !== 0 ? this.state.video_stats[video_key[0]]['SendResolutionHeight'] : "Not Available"}`}</MenuItem>
+                                <MenuItem>{`Resolution width of the sent video, in pixels:  ${video_key.length !== 0 ? this.state.video_stats[video_key[0]]['SendResolutionWidth'] : "Not Available"}`}</MenuItem>
+                                <MenuItem>{`Bitrate of the sent video, in Kbps:  ${video_key.length !== 0 ? this.state.video_stats[video_key[0]]['SendBitrate'] : "Not Available"}`}</MenuItem>
+                                <MenuItem>{`Frame rate of the sent video, in fps:  ${video_key.length !== 0 ? this.state.video_stats[video_key[0]]['SendFrameRate'] : "Not Available"}`}</MenuItem>
+
+                            {/* </ul> */}
+                            {/* </Clearfix> */}
+                        </DropdownButton>
+                    </NavItem>
+
                     <NavItem>
                         <DropdownButton 
                             eventKey={3} 
@@ -207,11 +240,12 @@ class App extends React.Component {
     }
 
     render() {
-
+        console.log(JSON.stringify(this.state.audio_stats))
         return (
         
             <div>
                 <div>
+                
                 {this.getNavigationBar()}
                 </div>
                 <div style={app.app}>
