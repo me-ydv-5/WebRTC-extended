@@ -1,7 +1,6 @@
 import React from 'react'
 import {withRouter} from 'react-router-dom'
 import styled from 'styled-components'
-import request from 'request'
 
 const LandingPageWrapper = styled.div`
   display: flex;
@@ -24,16 +23,8 @@ class LandingPage extends React.Component {
         this.setState({value: event.target.value})
     }
 
-    componentDidMount() {
-        console.log("mounted!")
-		let client = window.agora = window.AgoraRTC.createClient({
-			mode: 'live',
-			codec: 'h264'
-		})
-	}
-
 	handleSubmit(event){
-        // event.preventDefault()
+        event.preventDefault()
         // const gCaptcha = event.target[1].value;
         // console.log(gCaptcha)
         // var options = {

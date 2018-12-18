@@ -1,6 +1,7 @@
 import React from 'react'
 import {audioFile} from "../helpers/helper";
 import OthersVideoFeed from './OthersVideoFeed'
+import ClientVideoFeed from './ClientVideoFeed'
 import ReactTooltip from 'react-tooltip'
 
 // Images for the battery
@@ -109,6 +110,11 @@ class App extends React.Component {
         window.localStream.stopAudioMixing()
     }
 
+    componentWillUnmount() {
+        console.log('UNOINOSIDNFSIDF')
+        window.localStream.close()
+    }
+
     // getCurrentId(video, streamIds) {
     //     window.stream.stop()
     //     console.log(streamIds)
@@ -212,9 +218,14 @@ class App extends React.Component {
                     <div style={app.currentRemote}>
                         <div id={'current'}/>
                     </div>
-                    <div style={app.remote}>
-                        <OthersVideoFeed feeds={this.state.feeds}/>
-                    </div>
+                    <div style={app.dash}>
+                        <div style={app.client}>
+                            <ClientVideoFeed battery={this.state.battery}/>
+                        </div>
+                        <div style={app.remote}>
+                            <OthersVideoFeed feeds={this.state.feeds}/>
+                        </div>
+                </div>
                 </div>
             </div>
 
