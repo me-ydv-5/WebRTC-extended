@@ -1,5 +1,5 @@
 import React from 'react'
-import {audioFile} from "../helpers/helper";
+import {audioFile2} from "../helpers/helper";
 import OthersVideoFeed from './OthersVideoFeed'
 import ClientVideoFeed from './ClientVideoFeed'
 import ReactTooltip from 'react-tooltip'
@@ -88,7 +88,7 @@ class App extends React.Component {
 
     startMixing() {
         const options = {
-            filePath: audioFile,
+            filePath: audioFile2,
             playTime: 0,
             replace: false
         }
@@ -114,35 +114,6 @@ class App extends React.Component {
     componentWillUnmount() {
         console.log('UNOINOSIDNFSIDF')
         window.localStream.close()
-    }
-
-    // getCurrentId(video, streamIds) {
-    //     window.stream.stop()
-    //     console.log(streamIds)
-    //     if(video) {
-    //         video.style.height = '100vh'
-    //         video.style.width = '100%'
-    //         video.removeEventListener('click', () => {
-    //         })
-    //         document.getElementById('current').appendChild(video)
-    //     }
-    //     window.stream.play(video.id,{fit:'content'})
-    //
-    // }
-
-    checkBattery(value) {
-        const batt = value
-        var status;
-        if (batt.battery < 10) {
-            status = zero
-        } else if (batt.battery < 25) {
-            status = tfive
-        } else if (batt.battery < 50) {
-            status = fifty
-        } else if (batt.battery < 75) {
-            status = sfive
-        } else status = cent
-        return status 
     }
 
     getNavigationBar () {
@@ -185,7 +156,7 @@ class App extends React.Component {
                                 <MenuItem header>Local Audio Stats</MenuItem>
                                 <MenuItem>{`Energy level of the captured audio:  ${audio_key.length !== 0 ? this.state.audio_stats[audio_key[0]]['RecordingLevel'] : "Not Available"}`}</MenuItem>
                                 <MenuItem>{`Bitrate of the sent audio, in Kbps:  ${audio_key.length !== 0 ? this.state.audio_stats[audio_key[0]]['SendBitrate'] : "Not Available"}`}</MenuItem>
-                                <MenuItem>{`Whether the audio is muted or not:  ${audio_key.length !== 0 ? (this.state.audio_stats[audio_key[0]]['MuteState'] === 0 ? "Unmuted" : "Muted") : "Not Available"}`}</MenuItem>
+                                <MenuItem>{`Whether the audio is muted or not:  ${audio_key.length !== 0 ? (this.state.audio_stats[audio_key[0]]['MuteState'] === "0" ? "Unmuted" : "Muted") : "Not Available"}`}</MenuItem>
                                 <MenuItem>{`Energy level of the sent audio:  ${audio_key.length !== 0 ? this.state.audio_stats[audio_key[0]]['SendLevel'] : "Not Available"}`}</MenuItem>
                                 <MenuItem divider />
                                 <MenuItem header>Local Video Stats</MenuItem>
