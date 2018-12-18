@@ -39,7 +39,6 @@ class App extends React.Component {
             mixing: false,
             hide: false
         }
-        this.checkBattery = this.checkBattery.bind(this);
         this.startMixing = this.startMixing.bind(this)
         this.pauseMixing = this.pauseMixing.bind(this)
         this.stopMixing = this.stopMixing.bind(this)
