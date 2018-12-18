@@ -24,7 +24,8 @@ const app = {
     dash: {height: '100%', width: '30%'},
     client: {height: '300px', borderBottom: '2px solid yellow'},
     remote: {height: 'calc(100% - 300px)', overflowY: 'scroll'},
-    navbar: {height: '100%', width: '100%'}
+    navbar: {height: '100%', width: '100%'},
+    name: {color: 'black', padding: '10px 0px 0px 0px'}
 }
 
 class App extends React.Component {
@@ -152,14 +153,8 @@ class App extends React.Component {
             <Navbar fixedTop>
             <Navbar.Header>
                 <Navbar.Brand>
-                    <p data-tip={this.state.battery ? 
-                        `Current Battery Level: ${this.state.battery}`
-                        : 'Hang on tight, digging it out!' } href='#' 
-                    >
-                        <img src = 
-                        {this.checkBattery(this.state)}
-                        alt="Battery Level Indicator"
-                        />
+                    <p data-tip='Channel Name' style={app.name}>
+                        {window.location.search.split('=')[1]}
                     </p>
                     
                     <ReactTooltip place="top" type="dark" effect="float"/>
@@ -168,28 +163,26 @@ class App extends React.Component {
             </Navbar.Header>
             <Navbar.Collapse>
                 <Nav pullRight>
-                    {/* TODO Channel Name */}
-                    {/* <NavItem eventKey={1}>
-                        <p data-tip="Channel Name">
-                            {window.location.search.split('=')[1]}
-                        
-                            <ReactTooltip place="top" type="dark" effect="float"/>
-                        </p>
-                    </NavItem> */}
                     <NavItem>
                         <DropdownButton 
                             eventKey={4} 
                             onClick = 
                                 {() => this.setState({hide: !this.state.hide})}
                             bsSize="xsmall"
-                            title={'Stream Quality'} 
+                            title={'Stats'} 
                             noCaret
                             id="stream-dropdown"
                         >
                             {/* <Clearfix> */}
                             {/* <ul className="dropdown-menu open"> */}
+                                <MenuItem header>System Battery</MenuItem>
+                                <MenuItem>
+                                    {this.state.battery ? 
+                                        `Current Battery Level: ${this.state.battery}`
+                                        : 'Hang on tight, digging it out!' }                                
+                                </MenuItem>
+                                <MenuItem divider />
                                 <MenuItem header>Local Audio Stats</MenuItem>
-                                <MenuItem>{`Encoding type of the sent audio: ${audio_key.length !== 0 ? this.state.audio_stats[audio_key[0]]['CodecType'] : "Not Available"}`}</MenuItem>
                                 <MenuItem>{`Energy level of the captured audio:  ${audio_key.length !== 0 ? this.state.audio_stats[audio_key[0]]['RecordingLevel'] : "Not Available"}`}</MenuItem>
                                 <MenuItem>{`Bitrate of the sent audio, in Kbps:  ${audio_key.length !== 0 ? this.state.audio_stats[audio_key[0]]['SendBitrate'] : "Not Available"}`}</MenuItem>
                                 <MenuItem>{`Whether the audio is muted or not:  ${audio_key.length !== 0 ? (this.state.audio_stats[audio_key[0]]['MuteState'] === 0 ? "Unmuted" : "Muted") : "Not Available"}`}</MenuItem>
