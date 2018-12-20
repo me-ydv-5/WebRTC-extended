@@ -6,6 +6,7 @@
     "axios": "^0.18.0",
     "concurrently": "^4.1.0",
     "ejs": "^2.6.1",
+    "nodemon": "^1.18.9",
     "query-string": "^6.2.0",
     "react": "^16.6.3",
     "react-bootstrap": "^0.32.4",

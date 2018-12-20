@@ -12,14 +12,14 @@ function handleFail(err){
 //Static file declaration
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-//production mode
-if(process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'client/build')));
-  //
-  app.get('*', (req, res) => {
-    res.sendfile(path.join(__dirname = 'client/build/index.html'));
-  })
-}
+// //production mode
+// if(process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join(__dirname, 'client/build')));
+//   //
+//   app.get('*', (req, res) => {
+//     res.sendfile(path.join(__dirname = 'client/build/index.html'));
+//   })
+// }
 
 app.post("/getVerified", (req, res) => {
   var POST = {};
@@ -67,6 +67,10 @@ app.post("/getVerified", (req, res) => {
 
 const IP = '54.210.223.189'
 //start server
-app.listen(port, IP, (req, res) => {
-  console.log( `server listening on port: ${port} and IP ${IP}`);
+if(process.env.NODE_ENV === 'production')
+  app.listen(port, IP, (req, res) => {
+    console.log( `server listening on port: ${port} and IP ${IP}`);
+  })
+else app.listen(port, (req, res) => {
+    console.log("Server listening on port: ", port);
 })
