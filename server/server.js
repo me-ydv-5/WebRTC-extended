@@ -25,11 +25,6 @@ app.post("/getVerified", (req, res) => {
   var POST = {};
   req.on('data', function(data) {
      POST = JSON.parse(data);
-   //   data = data.split('&');
-   //   for (var i = 0; i < data.length; i++) {
-   //       var _data = data[i].split("=");
-   //       POST[_data[0]] = _data[1];
-   //   }
      console.log(POST);
      var options = {
            uri: 'https://www.google.com/recaptcha/api/siteverify',
@@ -70,8 +65,8 @@ app.post("/getVerified", (req, res) => {
   });
 }, handleFail);
 
-
+const IP = '54.210.223.189'
 //start server
-app.listen(port, (req, res) => {
-  console.log( `server listening on port: ${port}`);
+app.listen(port, IP, (req, res) => {
+  console.log( `server listening on port: ${port} and IP ${IP}`);
 })
