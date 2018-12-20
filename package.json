@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
+    "concurrently": "^4.1.0",
+    "ejs": "^2.6.1",
+    "query-string": "^6.2.0",
     "react": "^16.6.3",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.6.3",
@@ -11,22 +15,24 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",
     "react-tooltip": "^3.9.0",
+    "request": "^2.88.0",
     "semantic-ui-react": "^0.83.0",
-    "styled-components": "^4.1.2",
-    "axios": "^0.18.0",
-    "concurrently": "^4.1.0",
-    "ejs": "^2.6.1",
-    "query-string": "^6.2.0"
+    "styled-components": "^4.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "client-install": "npm install --prefix client",
+    "server": "nodemon index.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "eslintConfig": {
     "extends": "react-app"
   },
+  "proxy": "http://localhost:5000/",
   "browserslist": [
     ">0.2%",
     "not dead",

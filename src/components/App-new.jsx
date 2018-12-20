@@ -4,13 +4,6 @@ import OthersVideoFeed from './OthersVideoFeed'
 import ClientVideoFeed from './ClientVideoFeed'
 import ReactTooltip from 'react-tooltip'
 
-// Images for the battery
-import zero from '../assets/images/0.png';
-import tfive from '../assets/images/25.png';
-import fifty from '../assets/images/50.png';
-import sfive from '../assets/images/75.png';
-import cent from '../assets/images/100.png';
-
 import '../assets/css/app.css'
 import '../assets/css/styles.css'
 import '../assets/css/canvas.css'
