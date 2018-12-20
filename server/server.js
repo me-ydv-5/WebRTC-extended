@@ -65,11 +65,11 @@ app.post("/getVerified", (req, res) => {
   });
 }, handleFail);
 
-const IP = '54.210.223.189'
+const IP = 'https://young-falls-63578.herokuapp.com'
 //start server
 if(process.env.NODE_ENV === 'production')
   app.listen(port, IP, (req, res) => {
-    console.log( `server listening on port: ${port} and IP ${IP}`);
+    console.log( `server listening on port: ${port} and HOST ${IP}`);
   })
 else app.listen(port, (req, res) => {
     console.log("Server listening on port: ", port);
