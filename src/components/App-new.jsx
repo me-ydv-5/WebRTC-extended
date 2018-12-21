@@ -48,7 +48,6 @@ class App extends React.Component {
         client.on('stream-published', val => {
             setInterval(() => {
                 client.getSystemStats(stats => {
-                    console.log("Battery level: " + stats.BatteryLevel)
                     this.setState({battery: stats.BatteryLevel})
                 })
             }, 5000)
@@ -57,12 +56,10 @@ class App extends React.Component {
             setInterval(() => {
                 client.getLocalVideoStats(stats => {
                     this.setState({video_stats: stats})
-                    console.log('Local Video Stats:\n', stats, '\nEnding the video stats')
                 })
 
                 client.getLocalAudioStats(stats => {
                     this.setState({audio_stats: stats})
-                    console.log('Local Audio Stats:\n', stats, '\nEnding the audio stats')
                 })
 
             }, 1000)
@@ -71,7 +68,6 @@ class App extends React.Component {
         // Triggers the "volume-indicator" callback event every two seconds.
         client.enableAudioVolumeIndicator()
         client.on("volume-indicator", function (evt) {
-            console.log('enters the volume indicator', evt.attr)
             evt.attr.forEach(function (volume, index) {
                 console.log(`#${index} UID ${volume.uid} Level ${volume.level}`);
             });
@@ -92,26 +88,33 @@ class App extends React.Component {
     }
 
     pauseMixing() {
-        window.localStream.pauseAudioMixing()
-    }
+        if(this.state.mixing === true){
+            window.localStream.pauseAudioMixing()
+            this.setState({mixing: false})
+        }
+}
 
     resumeMixing() {
-        window.localStream.resumeAudioMixing()
+        if(this.state.mixing === false){
+            window.localStream.resumeAudioMixing()
+            this.setState({mixing: true})
+        }
     }
 
     stopMixing() {
-        window.localStream.stopAudioMixing()
+        if(this.state.mixing === true){
+            window.localStream.stopAudioMixing()
+            this.setState({mixing: false})
+        }
     }
 
-    componentWillUnmount() {
-        console.log('UNOINOSIDNFSIDF')
+componentWillUnmount() {
         window.localStream.close()
     }
 
     getNavigationBar () {
         var audio_key = Object.keys(this.state.audio_stats);
         var video_key = Object.keys(this.state.video_stats);
-        console.log("Audio key : ", audio_key, " Video Key: ", video_key);
         return <div>
             <Navbar fixedTop>
             <Navbar.Header>
@@ -177,7 +180,7 @@ class App extends React.Component {
                             </MenuItem>
                             <MenuItem divider />
                             <MenuItem eventKey={3.2} onClick={this.resumeMixing}>
-                                Play
+                                Resume
                             </MenuItem>
                             <MenuItem divider />
                             <MenuItem eventKey={3.3} onClick={this.pauseMixing}>
@@ -196,7 +199,6 @@ class App extends React.Component {
     }
 
     render() {
-        console.log(JSON.stringify(this.state.audio_stats))
         return (
         
             <div>

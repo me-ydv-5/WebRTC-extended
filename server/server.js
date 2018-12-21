@@ -21,11 +21,17 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 //   })
 // }
 
+app.get("/audio", (req, res) => {
+  // res.sendFile("../audio.mp3")
+  console.log("djesklf")
+  res.send("hi")
+})
+
 app.post("/getVerified", (req, res) => {
   var POST = {};
   req.on('data', function(data) {
      POST = JSON.parse(data);
-     console.log(POST);
+     
      var options = {
            uri: 'https://www.google.com/recaptcha/api/siteverify',
            headers:{
@@ -36,12 +42,10 @@ app.post("/getVerified", (req, res) => {
               response: POST['response']
            })
      };
-     console.log("POST IS ", POST)
      request.post(options, (err, response, body) => {
         if (err){
            console.log("Error occured while calling captcha url: ", err);
         }else{
-          console.log(body)
            var body = JSON.parse(body);
            if(body['success'] !== true){
               console.log('Error in processing captcha! Entry Denied.');
@@ -55,9 +59,6 @@ app.post("/getVerified", (req, res) => {
             //         }
             //      });
            }else{
-              console.log(POST);
-              channelName = POST['channelName'];
-              console.log("POST channel name "+ channelName);
               res.send({success: true});
            }
         }
@@ -65,12 +66,14 @@ app.post("/getVerified", (req, res) => {
   });
 }, handleFail);
 
+
 const IP = 'https://young-falls-63578.herokuapp.com'
 //start server
-if(process.env.NODE_ENV === 'production')
-  app.listen(port, IP, (req, res) => {
-    console.log( `server listening on port: ${port} and HOST ${IP}`);
-  })
-else app.listen(port, (req, res) => {
+// if(process.env.NODE_ENV === 'production')
+//   app.listen(port, IP, (req, res) => {
+//     console.log( `server listening on port: ${port} and HOST ${IP}`);
+//   })
+// else 
+app.listen(port, (req, res) => {
     console.log("Server listening on port: ", port);
 })
